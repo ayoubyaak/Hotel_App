@@ -1,0 +1,29 @@
+{% block title %}Liste {% endblock %}
+
+{% block body %}
+    <h1>Liste</h1>
+    <a href="{{ path('admin_<entity>_new') }}">Ajouter</a>
+
+    <table>
+        <thead><tr>{# ajuster colonnes #}
+            <th>ID</th><th>Champ</th><th>Actions</th>
+        </tr></thead>
+        <tbody>
+        {% for item in <items_var> %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name is defined ? item.name : (item.fullName is defined ? item.fullName : '—') }}</td>
+                <td>
+                    <a href="{{ path('admin_<entity>_edit', {id: item.id}) }}">Edit</a>
+                    <form method="post" action="{{ path('admin_<entity>_delete', {id: item.id}) }}" style="display:inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                        <button>Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3">Aucun enregistrement</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

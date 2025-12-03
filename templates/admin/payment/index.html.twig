@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des paiements</h1>
+
+    <a href="{{ path('admin_payment_new') }}">Ajouter un paiement</a>
+
+    <ul>
+        {% for payment in payments %}
+            <li>
+                Paiement #{{ payment.id }}
+                <a href="{{ path('admin_payment_edit', {id: payment.id}) }}">Modifier</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

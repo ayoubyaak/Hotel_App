@@ -1,0 +1,12 @@
+% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <h1>{% if entity is defined %}Modifier{% else %}Créer{% endif %} </h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">{% if entity is defined %}Modifier{% else %}Créer{% endif %}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('admin_<entity>_index') }}">Retour</a>
+{% endblock %}
