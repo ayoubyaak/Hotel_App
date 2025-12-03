@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-7">
+            {% if room.image %}
+                <img src="{{ asset('uploads/rooms/' ~ room.image) }}" class="img-fluid" alt="">
+            {% endif %}
+            <h2>Chambre {{ room.number }}</h2>
+            <p>{{ room.description }}</p>
+            <p class="fw-bold">{{ room.price }} USD / nuit</p>
+        </div>
+        <div class="col-md-5">
+            <h4>Réserver cette chambre</h4>
+            <a href="{{ path('front_reservation_book', {roomId: room.id}) }}" class="btn btn-success">Réserver maintenant</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Keto Hotel{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/jquery.mCustomScrollbar.min.css') }}">
+
+    <link rel="icon" href="{{ asset('front/images/fevicon.png') }}" type="image/gif"/>
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+
+    {% block styles %}{% endblock %}
+</head>
+
+<body class="main-layout">
+
+<div class="loader_bg">
+    <div class="loader"><img src="{{ asset('front/images/loading.gif') }}" alt="#"/></div>
+</div>
+
+{% include 'front/partials/header.html.twig' %}
+
+{% block body %}{% endblock %}
+
+{% include 'front/partials/footer.html.twig' %}
+
+<script src="{{ asset('front/js/jquery.min.js') }}"></script>
+<script src="{{ asset('front/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('front/js/jquery-3.0.0.min.js') }}"></script>
+<script src="{{ asset('front/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script src="{{ asset('front/js/custom.js') }}"></script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2>Réservation confirmée</h2>
+    <p>Merci ! Votre réservation #{{ reservation.id }} a été créée.</p>
+    <p>Chambre: {{ reservation.room.number }}</p>
+    <p>Arrivée: {{ reservation.startDate|date('Y-m-d') }}</p>
+    <p>Départ: {{ reservation.endDate|date('Y-m-d') }}</p>
+    <p>Prix total: {{ reservation.totalPrice }} USD</p>
+    <a href="{{ path('front_home') }}" class="btn btn-primary">Retour à l'accueil</a>
+{% endblock %}

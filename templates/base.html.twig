@@ -1,28 +1,42 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Admin{% endblock %}</title>
-    <link rel="stylesheet" href="/assets/styles.css">
+    <title>{% block title %}Hotel App{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    {% block styles %}{% endblock %}
 </head>
+
 <body>
-<nav>
-    <a href="{{ path('admin_dashboard_index') }}">Dashboard</a> |
-    <a href="{{ path('admin_category_index') }}">Categories</a> |
-    <a href="{{ path('admin_room_index') }}">Rooms</a> |
-    <a href="{{ path('admin_client_index') }}">Clients</a> |
-    <a href="{{ path('admin_reservation_index') }}">Reservations</a> |
-    <a href="{{ path('admin_payment_index') }}">Payments</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('front_home') }}">Hotel</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ path('front_room_index') }}">Chambres</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<main>
+<div class="container">
     {% for label, messages in app.flashes %}
         {% for m in messages %}
-            <div class="flash {{ label }}">{{ m }}</div>
+            <div class="alert alert-{{ label }}">{{ m }}</div>
         {% endfor %}
     {% endfor %}
 
     {% block body %}{% endblock %}
-</main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block scripts %}{% endblock %}
 </body>
-</html>

@@ -1,0 +1,24 @@
+{% extends 'front/layout/front_base.html.twig' %}
+
+{% block body %}
+    <h1>Chambres disponibles</h1>
+    <div class="row">
+        {% for room in rooms %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    {% if room.image %}
+                        <img src="{{ asset('uploads/rooms/' ~ room.image) }}" class="card-img-top" alt="">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">Chambre {{ room.number }}</h5>
+                        <p class="card-text">{{ room.description|slice(0,120) ~ '...' }}</p>
+                        <p class="fw-bold">{{ room.price }} USD / nuit</p>
+                        <a href="{{ path('front_room_show', {id: room.id}) }}" class="btn btn-primary">Voir</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucune chambre disponible pour le moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

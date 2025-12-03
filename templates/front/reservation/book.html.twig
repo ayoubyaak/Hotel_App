@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2>Réserver : Chambre {{ room.number }}</h2>
+
+    {{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_row(form.startDate) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.endDate) }}
+    </div>
+
+    <h5>Informations client</h5>
+    <div class="mb-3">{{ form_row(form.guestFullName) }}</div>
+    <div class="mb-3">{{ form_row(form.guestEmail) }}</div>
+    <div class="mb-3">{{ form_row(form.guestPhone) }}</div>
+    <div class="mb-3">{{ form_row(form.guestCin) }}</div>
+
+    <button class="btn btn-primary">Confirmer la réservation</button>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        // init flatpickr for date fields
+        flatpickr("input[type=date], input[type=datetime-local], input[name$='[startDate]'], input[name$='[endDate]']", {
+            minDate: "today",
+            dateFormat: "Y-m-d"
+        });
+    </script>
+{% endblock %}
