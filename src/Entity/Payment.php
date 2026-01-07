@@ -22,8 +22,8 @@ class Payment
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'payments')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Reservation $reservation = null;
 
     public function getId(): ?int

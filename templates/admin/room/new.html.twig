@@ -1,12 +1,46 @@
 {% extends 'admin/base.html.twig' %}
+{% block title %}Ajouter une chambre{% endblock %}
 
 {% block body %}
-    <h1>{% if entity is defined %}Modifier{% else %}Créer{% endif %} </h1>
+    <div class="room-form-page">
+        <div class="room-form-card">
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">{% if entity is defined %}Modifier{% else %}Créer{% endif %}</button>
-    {{ form_end(form) }}
+            <h1>Ajouter une chambre</h1>
 
-    <a href="{{ path('admin_<entity>_index') }}">Retour</a>
+            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+            <div class="room-form-grid">
+
+                {{ form_row(form.number) }}
+                {{ form_row(form.price) }}
+
+                <div class="full">
+                    {{ form_row(form.description) }}
+                </div>
+
+                <div class="full">
+                    {{ form_row(form.available) }}
+                </div>
+
+                {{ form_row(form.category) }}
+                {{ form_row(form.roomClass) }}
+
+                <div class="full">
+                    {{ form_row(form.imageFile) }}
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary w-100 mt-3">
+                Enregistrer
+            </button>
+
+            {{ form_end(form) }}
+
+            <a href="{{ path('admin_room_index') }}" class="back-link">
+                ← Retour
+            </a>
+
+        </div>
+    </div>
 {% endblock %}

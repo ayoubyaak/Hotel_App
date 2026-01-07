@@ -1,7 +1,10 @@
 <?php
+
+
 namespace App\Controller\Front;
 
 use App\Entity\Client;
+use App\Entity\Payment;
 use App\Entity\Reservation;
 use App\Form\FrontReservationType;
 use App\Repository\ReservationRepository;
@@ -16,11 +19,16 @@ use Symfony\Component\HttpFoundation\Response;
 class ReservationController extends AbstractController
 {
     #[Route('/book/{roomId}', name: 'book')]
-    public function book(int $roomId, Request $request, RoomRepository $roomRepo, ReservationRepository $resRepo, EntityManagerInterface $em): Response
-    {
+    public function book(
+        int $roomId,
+        Request $request,
+        RoomRepository $roomRepo,
+        ReservationRepository $resRepo,
+        EntityManagerInterface $em
+    ): Response {
         $room = $roomRepo->find($roomId);
         if (!$room) {
-            throw $this->createNotFoundException('Chambre non trouvée');
+            throw $this->createNotFoundException('Room not found');
         }
 
         $reservation = new Reservation();
@@ -28,47 +36,47 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData(); // reservation entity fields: startDate, endDate, maybe client object or client fields
 
-            // Vérifier disponibilité
+            // Dates
             $start = $reservation->getStartDate();
-            $end = $reservation->getEndDate();
-            if (!$resRepo->isRoomAvailable($room->getId(), $start, $end)) {
-                $this->addFlash('danger', 'La chambre n\'est pas disponible sur ces dates.');
-                // show form again
-                return $this->render('front/reservation/book.html.twig', [
-                    'form' => $form->createView(),
-                    'room' => $room
-                ]);
-            }
+            $end   = $reservation->getEndDate();
 
-            // Si formulaire contient des infos client (guest), créer Client
-            $clientData = $form->get('guestFullName')->getData();
-            if ($clientData) {
-                $client = new Client();
-                $client->setFullName($form->get('guestFullName')->getData());
-                $client->setEmail($form->get('guestEmail')->getData());
-                $client->setPhone($form->get('guestPhone')->getData());
-                // CIN optional if in form
-                $client->setCin($form->get('guestCin')->getData() ?? '');
-                $em->persist($client);
-                $reservation->setClient($client);
-            } else {
-                // Option: if user logged in, set client to current user's client profile (depends on design)
-            }
+            // (اختياري) availability
+            // if (!$resRepo->isRoomAvailable(...)) { }
 
+            // Client
+            $client = new Client();
+            $client->setFullName($form->get('guestFullName')->getData());
+            $client->setEmail($form->get('guestEmail')->getData());
+            $client->setPhone($form->get('guestPhone')->getData());
+            $client->setCin($form->get('guestCin')->getData() ?? '');
+            $em->persist($client);
+
+            // Reservation
+            $reservation->setClient($client);
             $reservation->setRoom($room);
 
-            // Calcul prix total
-            $days = $start->diff($end)->days;
-            if ($days === 0) $days = 1;
+            $days = max(1, $start->diff($end)->days);
             $reservation->setTotalPrice($days * $room->getPrice());
 
             $em->persist($reservation);
-            $em->flush();
+            $em->flush(); // لازمها قبل Payment
 
-            $this->addFlash('success', 'Réservation effectuée avec succès.');
-            return $this->redirectToRoute('front_reservation_success', ['id' => $reservation->getId()]);
+            // ================= PAYMENT =================
+            $payment = new Payment();
+            $payment->setReservation($reservation);
+            $payment->setAmount($reservation->getTotalPrice());
+            $payment->setMethod($form->get('paymentMethod')->getData());
+            $payment->setDate(new \DateTime());
+
+            $em->persist($payment);
+            $em->flush();
+            // ===========================================
+
+            return $this->redirectToRoute(
+                'front_reservation_success',
+                ['id' => $reservation->getId()]
+            );
         }
 
         return $this->render('front/reservation/book.html.twig', [
@@ -78,10 +86,15 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/success/{id}', name: 'success')]
-    public function success(int $id, ReservationRepository $resRepo): Response
+    public function success(int $id, ReservationRepository $repo): Response
     {
-        $reservation = $resRepo->find($id);
-        if (!$reservation) throw $this->createNotFoundException();
-        return $this->render('front/reservation/success.html.twig', ['reservation' => $reservation]);
+        $reservation = $repo->find($id);
+        if (!$reservation) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('front/reservation/success.html.twig', [
+            'reservation' => $reservation
+        ]);
     }
 }

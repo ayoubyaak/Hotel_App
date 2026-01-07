@@ -6,9 +6,6 @@ use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Reservation>
- */
 class ReservationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,28 +13,22 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    //    /**
-    //     * @return Reservation[] Returns an array of Reservation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function isRoomAvailable(
+        int $roomId,
+        \DateTimeInterface $start,
+        \DateTimeInterface $end
+    ): bool
+    {
+        $qb = $this->createQueryBuilder('r');
 
-    //    public function findOneBySomeField($value): ?Reservation
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $qb->select('COUNT(r.id)')
+            ->where('r.room = :room')
+            ->andWhere('r.startDate < :end')
+            ->andWhere('r.endDate > :start')
+            ->setParameter('room', $roomId)
+            ->setParameter('start', $start)
+            ->setParameter('end', $end);
+
+        return (int) $qb->getQuery()->getSingleScalarResult() === 0;
+    }
 }

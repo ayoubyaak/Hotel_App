@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Admin{% endblock %}</title>
-    <link rel="stylesheet" href="/assets/styles.css">
+    {% include 'admin/partials/head.html.twig' %}
 </head>
+
 <body>
-<nav>
-    <a href="{{ path('admin_dashboard_index') }}">Dashboard</a> |
-    <a href="{{ path('admin_category_index') }}">Categories</a> |
-    <a href="{{ path('admin_room_index') }}">Rooms</a> |
-    <a href="{{ path('admin_client_index') }}">Clients</a> |
-    <a href="{{ path('admin_reservation_index') }}">Reservations</a> |
-    <a href="{{ path('admin_payment_index') }}">Payments</a>
-</nav>
 
-<main>
-    {% for label, messages in app.flashes %}
-        {% for m in messages %}
-            <div class="flash {{ label }}">{{ m }}</div>
-        {% endfor %}
-    {% endfor %}
+<div class="admin-wrapper">
 
-    {% block body %}{% endblock %}
-</main>
+    {% include 'admin/partials/sidebar.html.twig' %}
+
+    <main class="main-content">
+
+        {% include 'admin/partials/topbar.html.twig' %}
+
+        <section class="content p-4">
+            {% block body %}{% endblock %}
+        </section>
+
+    </main>
+
+</div>
+
+{% include 'admin/partials/scripts.html.twig' %}
 </body>
 </html>

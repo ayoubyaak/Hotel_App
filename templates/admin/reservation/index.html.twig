@@ -1,29 +1,89 @@
-{% block title %}Liste {% endblock %}
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
 
 {% block body %}
-    <h1>Liste</h1>
-    <a href="{{ path('admin_<entity>_new') }}">Ajouter</a>
+    <div class="reservation-page">
 
-    <table>
-        <thead><tr>{# ajuster colonnes #}
-            <th>ID</th><th>Champ</th><th>Actions</th>
-        </tr></thead>
-        <tbody>
-        {% for item in <items_var> %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.name is defined ? item.name : (item.fullName is defined ? item.fullName : '—') }}</td>
-                <td>
-                    <a href="{{ path('admin_<entity>_edit', {id: item.id}) }}">Edit</a>
-                    <form method="post" action="{{ path('admin_<entity>_delete', {id: item.id}) }}" style="display:inline">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
-                        <button>Delete</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr><td colspan="3">Aucun enregistrement</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <!-- HEADER -->
+        <div class="page-header">
+            <h2>Liste des Réservations</h2>
+
+            <a href="{{ path('admin_reservation_new') }}" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Ajouter
+            </a>
+        </div>
+
+        <!-- CARD -->
+        <div class="card reservation-card">
+            <div class="card-body p-0">
+
+                <table class="table table-hover mb-0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Client</th>
+                        <th>Chambre</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Total (€)</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for item in reservations %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+
+                            <td>
+                                {{ item.client ? item.client.fullName : '—' }}
+                            </td>
+
+                            <td>
+                                {{ item.room ? 'Room ' ~ item.room.number : '—' }}
+                            </td>
+
+                            <td>{{ item.startDate|date('Y-m-d') }}</td>
+                            <td>{{ item.endDate|date('Y-m-d') }}</td>
+
+                            <td>
+                                <strong>{{ item.totalPrice ?? '—' }}</strong>
+                            </td>
+
+                            <td class="text-end">
+                                <a href="{{ path('admin_reservation_edit', {id: item.id}) }}"
+                                   class="btn btn-sm btn-secondary">
+                                    Edit
+                                </a>
+
+                                <form method="post"
+                                      action="{{ path('admin_reservation_delete', {id: item.id}) }}"
+                                      style="display:inline"
+                                      onsubmit="return confirm('Supprimer cette réservation ?');">
+
+                                    <input type="hidden" name="_token"
+                                           value="{{ csrf_token('delete' ~ item.id) }}">
+
+                                    <button class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                Aucune réservation trouvée
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
 {% endblock %}

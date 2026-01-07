@@ -1,33 +1,70 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Book Room {{ room.number }}{% endblock %}
+
 {% block body %}
-    <h2>Réserver : Chambre {{ room.number }}</h2>
+    <section class="booking-page">
+        <div class="container">
 
-    {{ form_start(form) }}
-    <div class="mb-3">
-        {{ form_row(form.startDate) }}
-    </div>
-    <div class="mb-3">
-        {{ form_row(form.endDate) }}
-    </div>
+            <h1 class="page-title">Book Room {{ room.number }}</h1>
 
-    <h5>Informations client</h5>
-    <div class="mb-3">{{ form_row(form.guestFullName) }}</div>
-    <div class="mb-3">{{ form_row(form.guestEmail) }}</div>
-    <div class="mb-3">{{ form_row(form.guestPhone) }}</div>
-    <div class="mb-3">{{ form_row(form.guestCin) }}</div>
+            <div class="booking-wrapper">
 
-    <button class="btn btn-primary">Confirmer la réservation</button>
-    {{ form_end(form) }}
+                <!-- Room Info -->
+                <div class="booking-room">
+                    <img src="/assets/images/{{ room.image }}" alt="Room {{ room.number }}">
 
-{% endblock %}
+                    <h3>Room {{ room.number }}</h3>
+                    <p>{{ room.description }}</p>
+                    <strong>{{ room.price }} TND / night</strong>
+                </div>
 
-{% block scripts %}
-    {{ parent() }}
-    <script>
-        // init flatpickr for date fields
-        flatpickr("input[type=date], input[type=datetime-local], input[name$='[startDate]'], input[name$='[endDate]']", {
-            minDate: "today",
-            dateFormat: "Y-m-d"
-        });
-    </script>
+                <!-- Reservation Form -->
+                <div class="booking-form">
+                    {{ form_start(form) }}
+
+                    <div class="form-group">
+                        {{ form_row(form.startDate) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.endDate) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.guestFullName) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.guestEmail) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.guestPhone) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.guestCin) }}
+                    </div>
+
+                    <div class="payment-section">
+                        <h4 class="section-title">Payment Method</h4>
+
+                        <div class="payment-options">
+                            {{ form_row(form.paymentMethod) }}
+                        </div>
+                    </div>
+
+
+
+
+                    <button class="btn-book">Confirm Reservation</button>
+
+                    {{ form_end(form) }}
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 {% endblock %}

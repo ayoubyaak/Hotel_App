@@ -2,7 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Reservation;
+use App\Entity\Client;
+use App\Entity\Room;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,24 +19,27 @@ class ReservationType extends AbstractType
             ->add('client', EntityType::class, [
                 'class' => Client::class,
                 'choice_label' => 'fullName',
-                'label' => 'Client'
+                'label' => 'Client',
             ])
             ->add('room', EntityType::class, [
                 'class' => Room::class,
                 'choice_label' => 'number',
-                'label' => 'Chambre'
+                'label' => 'Chambre',
             ])
-            ->add('startDate', DateTimeType::class, [
-                'widget' => 'single_text', 'label' => 'Début'
+            ->add('startDate', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date de début'
             ])
-            ->add('endDate', DateTimeType::class, [
-                'widget' => 'single_text', 'label' => 'Fin'
+            ->add('endDate', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date de fin'
             ]);
-        // totalPrice calculé dans le controller
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Reservation::class]);
+        $resolver->setDefaults([
+            'data_class' => Reservation::class,
+        ]);
     }
 }

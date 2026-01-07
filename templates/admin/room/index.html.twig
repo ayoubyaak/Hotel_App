@@ -1,29 +1,88 @@
-{% block title %}Liste {% endblock %}
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Chambres{% endblock %}
+
+{% block page_title %}Chambres{% endblock %}
 
 {% block body %}
-    <h1>Liste</h1>
-    <a href="{{ path('admin_<entity>_new') }}">Ajouter</a>
 
-    <table>
-        <thead><tr>{# ajuster colonnes #}
-            <th>ID</th><th>Champ</th><th>Actions</th>
-        </tr></thead>
-        <tbody>
-        {% for item in <items_var> %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.name is defined ? item.name : (item.fullName is defined ? item.fullName : '—') }}</td>
-                <td>
-                    <a href="{{ path('admin_<entity>_edit', {id: item.id}) }}">Edit</a>
-                    <form method="post" action="{{ path('admin_<entity>_delete', {id: item.id}) }}" style="display:inline">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
-                        <button>Delete</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr><td colspan="3">Aucun enregistrement</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="rooms-admin-page">
+
+        <!-- HEADER -->
+        <div class="page-header d-flex justify-content-between align-items-center mb-4">
+            <h2>Chambres</h2>
+
+            <a href="{{ path('admin_room_new') }}" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Ajouter
+            </a>
+        </div>
+
+        <!-- ROOMS GRID -->
+        <div class="rooms-grid">
+
+            {% for room in rooms %}
+                <div class="room-card">
+
+                    <!-- IMAGE -->
+                    <div class="room-image">
+                        {% if room.image %}
+                            <img src="/assets/images/{{ room.image }}"
+                                 alt="Room {{ room.number }}">
+                        {% else %}
+                            <img src="/assets/images/default-room.jpg"
+                                 alt="Room">
+                        {% endif %}
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="room-body">
+
+                        <h3>Room {{ room.number }}</h3>
+
+                        <p class="room-meta">
+                            {{ room.category.name }} • {{ room.roomClass.name }}
+                        </p>
+
+                        <div class="room-price">
+                            {{ room.price }} TND / night
+                        </div>
+
+                        <!-- STATUS -->
+                        {% if room.available %}
+                            <span class="badge bg-success mb-2">Disponible</span>
+                        {% else %}
+                            <span class="badge bg-danger mb-2">Indisponible</span>
+                        {% endif %}
+
+                        <!-- ACTIONS -->
+                        <div class="room-actions mt-3">
+                            <a href="{{ path('admin_room_edit', {id: room.id}) }}"
+                               class="btn btn-sm btn-secondary">
+                                Edit
+                            </a>
+
+                            <form method="post"
+                                  action="{{ path('admin_room_delete', {id: room.id}) }}"
+                                  style="display:inline"
+                                  onsubmit="return confirm('Supprimer cette chambre ?');">
+                                <input type="hidden"
+                                       name="_token"
+                                       value="{{ csrf_token('delete' ~ room.id) }}">
+                                <button class="btn btn-sm btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            {% else %}
+                <p class="text-center">Aucune chambre trouvée</p>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
 {% endblock %}

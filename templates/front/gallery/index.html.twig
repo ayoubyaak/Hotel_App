@@ -1,0 +1,100 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Gallery{% endblock %}
+
+{% block styles %}
+    <style>
+        /* ===== GALLERY PAGE ===== */
+        .gallery-page {
+            padding: 80px 40px;
+            background: #dbeafe;
+        }
+
+
+        .page-title {
+            color: #1e293b;
+            letter-spacing: 1px;
+        }
+
+
+        /* GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* ITEM */
+        .gallery-item {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        /* IMAGE */
+        .gallery-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="gallery-page">
+        <h1 class="page-title">Gallery</h1>
+
+        <div class="gallery-grid">
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery1.jpg" alt="Gallery image">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery2.jpg" alt="Gallery image">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery3.jpg" alt="Gallery image">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery4.jpg" alt="Gallery image">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery5.jpg" alt="Gallery image">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery6.jpg" alt="Gallery image">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery7.jpg" alt="Gallery image">
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/images/gallery8.jpg" alt="Gallery image">
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

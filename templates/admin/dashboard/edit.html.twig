@@ -8,5 +8,5 @@
     <button type="submit">{% if entity is defined %}Modifier{% else %}Créer{% endif %}</button>
     {{ form_end(form) }}
 
-    <a href="{{ path('admin_<entity>_index') }}">Retour</a>
+    <a href="{{ path('admin_dashboard_index') }}">Retour</a>
 {% endblock %}

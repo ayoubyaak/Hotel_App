@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Admin | Hotel{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- ✅ Admin CSS -->
+    <link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+
+
+<body>
+
+<div class="admin-wrapper">
+
+    {# ===== SIDEBAR ===== #}
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fa fa-hotel"></i>
+            <span>Admin Hotel</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li>
+                {# ✅ ROUTE CORRECTE #}
+                <a href="{{ path('admin_dashboard_index') }}">
+                    <i class="fa fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('admin_category_index') }}">
+                    <i class="fa fa-list"></i> Catégories
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('admin_client_index') }}">
+                    <i class="fa fa-users"></i> Clients
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('admin_room_index') }}">
+                    <i class="fa fa-bed"></i> Chambres
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('admin_reservation_index') }}">
+                    <i class="fa fa-calendar-check"></i> Réservations
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    {# ===== MAIN CONTENT ===== #}
+    <main class="main-content">
+
+        {# ===== TOPBAR ===== #}
+        <header class="topbar">
+            <div>
+                <h5 class="mb-0">{% block page_title %}Dashboard{% endblock %}</h5>
+            </div>
+
+            <div>
+                <span class="me-3">
+                    <i class="fa fa-user"></i>
+                    {{ app.user.name ?? app.user.email }}
+                </span>
+
+                <a href="{{ path('app_logout') }}" class="btn btn-sm btn-danger">
+                    Logout
+                </a>
+            </div>
+        </header>
+
+        {# ===== FLASH MESSAGES ===== #}
+        <div class="container-fluid mt-3">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        {# ===== PAGE CONTENT ===== #}
+        <section class="content p-4">
+            {% block body %}{% endblock %}
+        </section>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<div class="dashboard-stats">
+
+    <div class="stat-box">
+        <div class="stat-icon">
+            <i class="fa fa-list"></i>
+        </div>
+        <div class="stat-info">
+            <span>Catégories</span>
+            <strong>{{ stats.categories }}</strong>
+        </div>
+    </div>
+
+    <div class="stat-box">
+        <div class="stat-icon">
+            <i class="fa fa-users"></i>
+        </div>
+        <div class="stat-info">
+            <span>Clients</span>
+            <strong>{{ stats.clients }}</strong>
+        </div>
+    </div>
+
+    <div class="stat-box">
+        <div class="stat-icon">
+            <i class="fa fa-bed"></i>
+        </div>
+        <div class="stat-info">
+            <span>Chambres</span>
+            <strong>{{ stats.rooms }}</strong>
+        </div>
+    </div>
+
+    <div class="stat-box">
+        <div class="stat-icon">
+            <i class="fa fa-calendar-check"></i>
+        </div>
+        <div class="stat-info">
+            <span>Réservations</span>
+            <strong>{{ stats.reservations }}</strong>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

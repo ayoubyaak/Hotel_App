@@ -1,29 +1,52 @@
-{% block title %}Liste {% endblock %}
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
 
 {% block body %}
-    <h1>Liste</h1>
-    <a href="{{ path('admin_<entity>_new') }}">Ajouter</a>
 
-    <table>
-        <thead><tr>{# ajuster colonnes #}
-            <th>ID</th><th>Champ</th><th>Actions</th>
-        </tr></thead>
-        <tbody>
-        {% for item in <items_var> %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.name is defined ? item.name : (item.fullName is defined ? item.fullName : '—') }}</td>
-                <td>
-                    <a href="{{ path('admin_<entity>_edit', {id: item.id}) }}">Edit</a>
-                    <form method="post" action="{{ path('admin_<entity>_delete', {id: item.id}) }}" style="display:inline">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
-                        <button>Delete</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr><td colspan="3">Aucun enregistrement</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="dashboard-wrapper">
+
+        <h2 class="dashboard-title">
+            Tableau de bord – Statistiques générales
+        </h2>
+
+        <div class="dashboard-stats">
+
+            <div class="stat-box">
+                <div class="stat-icon"><i class="fa fa-list"></i></div>
+                <div class="stat-info">
+                    <span>Catégories</span>
+                    <strong>{{ stats.categories }}</strong>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon"><i class="fa fa-users"></i></div>
+                <div class="stat-info">
+                    <span>Clients</span>
+                    <strong>{{ stats.clients }}</strong>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon"><i class="fa fa-bed"></i></div>
+                <div class="stat-info">
+                    <span>Chambres</span>
+                    <strong>{{ stats.rooms }}</strong>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon"><i class="fa fa-calendar-check"></i></div>
+                <div class="stat-info">
+                    <span>Réservations</span>
+                    <strong>{{ stats.reservations }}</strong>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
 {% endblock %}

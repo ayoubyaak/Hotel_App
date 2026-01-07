@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -29,6 +31,19 @@ class Reservation
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Room $room = null;
+
+    #[ORM\OneToMany(
+        mappedBy: 'reservation',
+        targetEntity: Payment::class,
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true
+    )]
+    private Collection $payments;
+
+    public function __construct()
+    {
+        $this->payments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -87,6 +102,32 @@ class Reservation
     public function setRoom(?Room $room): static
     {
         $this->room = $room;
+        return $this;
+    }
+
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): static
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments->add($payment);
+            $payment->setReservation($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): static
+    {
+        if ($this->payments->removeElement($payment)) {
+            if ($payment->getReservation() === $this) {
+                $payment->setReservation(null);
+            }
+        }
+
         return $this;
     }
 }

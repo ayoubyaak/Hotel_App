@@ -1,12 +1,47 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block title %}Nouvelle catégorie{% endblock %}
+
 {% block body %}
-    <h1>{% if entity is defined %}Modifier{% else %}Créer{% endif %} </h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">{% if entity is defined %}Modifier{% else %}Créer{% endif %}</button>
-    {{ form_end(form) }}
+    <div class="category-page">
 
-    <a href="{{ path('admin_<entity>_index') }}">Retour</a>
+        <div class="page-header">
+            <h2>Nouvelle catégorie</h2>
+        </div>
+
+        <div class="card category-card p-4">
+
+            {{ form_start(form) }}
+
+            <div class="mb-3">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+
+            {% if form.description is defined %}
+                <div class="mb-3">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+            {% endif %}
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ path('admin_category_index') }}" class="btn btn-secondary">
+                    ← Retour
+                </a>
+
+                <button class="btn btn-primary">
+                    Créer
+                </button>
+            </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
 {% endblock %}

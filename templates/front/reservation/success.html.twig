@@ -1,10 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Reservation Success{% endblock %}
+
 {% block body %}
-    <h2>Réservation confirmée</h2>
-    <p>Merci ! Votre réservation #{{ reservation.id }} a été créée.</p>
-    <p>Chambre: {{ reservation.room.number }}</p>
-    <p>Arrivée: {{ reservation.startDate|date('Y-m-d') }}</p>
-    <p>Départ: {{ reservation.endDate|date('Y-m-d') }}</p>
-    <p>Prix total: {{ reservation.totalPrice }} USD</p>
-    <a href="{{ path('front_home') }}" class="btn btn-primary">Retour à l'accueil</a>
+    <section class="reservation-success">
+        <div class="container">
+
+            <h2>✅ Reservation Confirmed</h2>
+
+            <p>
+                <strong>Room:</strong> {{ reservation.room.number }}
+            </p>
+
+            <p>
+                <strong>From:</strong> {{ reservation.startDate|date('Y-m-d') }} <br>
+                <strong>To:</strong> {{ reservation.endDate|date('Y-m-d') }}
+            </p>
+
+            <p>
+                <strong>Total Price:</strong> {{ reservation.totalPrice }} TND
+            </p>
+
+            <hr>
+
+            <a href="{{ path('front_room_index') }}" class="btn btn-primary">
+                Back to Rooms
+            </a>
+
+        </div>
+    </section>
 {% endblock %}

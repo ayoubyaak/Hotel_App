@@ -1,0 +1,726 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+}
+
+/* Wrapper */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #1f2937;
+    color: #fff;
+}
+
+.sidebar-header {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #111827;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li a {
+    display: block;
+    padding: 15px 20px;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar-menu li a:hover {
+    background: #374151;
+    color: #fff;
+}
+
+/* Main */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Topbar */
+.topbar {
+    height: 60px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    background: #f4f6f9;
+}
+/* ===== DASHBOARD BACKGROUND ===== */
+.admin-dashboard-bg {
+    position: relative;
+    min-height: 100vh;
+    background: url("../images/banner1.jpg") center / cover no-repeat;
+    padding: 60px;
+}
+
+/* Overlay transparent */
+.admin-dashboard-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55); /* شفافية */
+}
+
+/* Content */
+.admin-dashboard-content {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+    color: #fff;
+}
+
+.admin-dashboard-content h1 {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.subtitle {
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+/* ===== STATS ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat-card span {
+    display: block;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.stat-card strong {
+    font-size: 32px;
+    margin-top: 8px;
+    display: block;
+}
+
+/* ===== ACTION LINKS ===== */
+.admin-actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.admin-actions a {
+    background: rgba(255,255,255,0.9);
+    color: #000;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.admin-actions a:hover {
+    background: #fff;
+}
+.admin-dashboard-bg {
+    background-image: url("../images/banner1.jpg");
+}
+/* ===== RESET ===== */
+body {
+    background-color: #f5f6fa;
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* ===== LAYOUT ===== */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    color: #fff;
+}
+
+.main-content {
+    flex: 1;
+    background: #f5f6fa;
+}
+
+/* ===== DASHBOARD CENTER ===== */
+.content {
+    height: calc(100vh - 80px); /* ينقص topbar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== STATS GRID ===== */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 260px);
+    gap: 30px;
+}
+
+/* ===== STAT CARD ===== */
+.stat-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+/* ===== ICON ===== */
+.stat-icon {
+    font-size: 36px;
+    margin-right: 18px;
+    color: #2563eb;
+}
+
+/* ===== TEXT ===== */
+.stat-info span {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.stat-info strong {
+    display: block;
+    font-size: 28px;
+    color: #0f172a;
+}
+/* ===== DASHBOARD BACKGROUND ===== */
+.content {
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+/* ===== DASHBOARD BACKGROUND IMAGE ===== */
+.content {
+    height: calc(100vh - 80px); /* ارتفاع الشاشة ناقص topbar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* background image + overlay */
+    background:
+        linear-gradient(
+            rgba(245, 246, 250, 0.60),
+            rgba(245, 246, 250, 0.60)
+        ),
+        url("/admin/images/banner1.jpg") center center / cover no-repeat;
+}
+
+/* ===== DASHBOARD WRAPPER ===== */
+.dashboard-wrapper {
+    text-align: center;
+}
+
+/* ===== DASHBOARD TITLE ===== */
+.dashboard-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #0f172a;
+}
+
+/* ===== STATS GRID ===== */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 260px);
+    gap: 30px;
+}
+
+/* ===== STAT CARD ===== */
+.stat-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* ===== ICON ===== */
+.stat-icon {
+    font-size: 36px;
+    margin-right: 18px;
+    color: #2563eb;
+}
+
+/* ===== TEXT ===== */
+.stat-info span {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.stat-info strong {
+    display: block;
+    font-size: 28px;
+    color: #0f172a;
+}
+/* =========================
+   CATEGORY PAGE
+========================= */
+
+.category-page {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== Header ===== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.page-header h2 {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.page-header .btn {
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+/* ===== Card ===== */
+.category-card {
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.92); /* شفافية */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+}
+
+/* ===== Table ===== */
+.category-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.category-card thead {
+    background: #f1f5f9;
+}
+
+.category-card thead th {
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.category-card tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #1e293b;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
+}
+
+/* ===== Hover Row ===== */
+.category-card tbody tr:hover {
+    background: rgba(37, 99, 235, 0.05);
+}
+
+/* ===== Actions Buttons ===== */
+.category-card .btn {
+    border-radius: 6px;
+    font-size: 13px;
+    padding: 6px 10px;
+    margin-left: 4px;
+}
+
+.category-card .btn-secondary {
+    background-color: #64748b;
+    border: none;
+}
+
+.category-card .btn-secondary:hover {
+    background-color: #475569;
+}
+
+.category-card .btn-danger {
+    background-color: #ef4444;
+    border: none;
+}
+
+.category-card .btn-danger:hover {
+    background-color: #dc2626;
+}
+
+/* ===== Empty State ===== */
+.category-card tbody tr td[colspan] {
+    color: #64748b;
+    font-style: italic;
+    background: #f8fafc;
+}
+/* ===============================
+   ADMIN ROOMS PAGE
+================================ */
+
+.rooms-admin-page {
+    position: relative;
+    padding: 30px;
+    min-height: calc(100vh - 80px);
+}
+
+/* ---------- HEADER ---------- */
+.rooms-admin-page .page-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* ---------- GRID ---------- */
+.rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+/* ---------- CARD ---------- */
+.room-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- IMAGE ---------- */
+.room-image {
+    height: 180px;
+    overflow: hidden;
+}
+
+.room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.room-card:hover .room-image img {
+    transform: scale(1.05);
+}
+
+/* ---------- BODY ---------- */
+.room-body {
+    padding: 18px;
+    text-align: center;
+}
+
+.room-body h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #020617;
+}
+
+/* CATEGORY + CLASS */
+.room-meta {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+/* PRICE */
+.room-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+/* STATUS */
+.room-body .badge {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+/* ---------- ACTIONS ---------- */
+.room-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.room-actions .btn {
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .rooms-admin-page {
+        padding: 20px;
+    }
+
+    .room-image {
+        height: 160px;
+    }
+}
+/* ===============================
+   ROOM FORM (NEW / EDIT)
+================================= */
+
+.room-form-page {
+    min-height: calc(100vh - 70px);
+    background:
+        linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+        url("/admin/images/banner1.jpg") center / cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px;
+}
+
+.room-form-card {
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.room-form-card h1 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #1f2937;
+}
+
+/* form fields */
+.room-form-card .form-control,
+.room-form-card select,
+.room-form-card textarea {
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.room-form-card label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* checkbox */
+.room-form-card .form-check {
+    margin-top: 10px;
+}
+
+/* buttons */
+.room-form-card button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.room-form-card .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.room-form-card .back-link:hover {
+    text-decoration: underline;
+}
+/* ===============================
+   ROOM FORM – STRUCTURE IMPROVED
+================================= */
+
+.room-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 20px;
+}
+
+/* full width rows */
+.room-form-grid .full {
+    grid-column: 1 / -1;
+}
+
+/* textarea */
+.room-form-grid textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* checkbox row */
+.room-form-grid .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* file upload */
+.room-form-grid input[type="file"] {
+    padding: 6px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+/* submit */
+.room-form-card button[type="submit"] {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+    .room-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ===============================
+   RESERVATION PAGE
+================================ */
+
+.reservation-page {
+    padding: 20px;
+}
+
+/* header */
+.reservation-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.reservation-page .page-header h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+/* card */
+.reservation-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* table */
+.reservation-card table thead {
+    background: #f4f6fa;
+}
+
+.reservation-card table th {
+    font-weight: 600;
+    color: #333;
+    padding: 14px;
+}
+
+.reservation-card table td {
+    padding: 14px;
+    vertical-align: middle;
+}
+
+/* hover */
+.reservation-card tbody tr:hover {
+    background: #f9fbff;
+}
+
+/* price */
+.reservation-card td strong {
+    color: #0d6efd;
+}
+
+/* buttons */
+.reservation-card .btn {
+    border-radius: 6px;
+    padding: 5px 10px;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+    .reservation-page .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+.reservation-form-page {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.reservation-form-card {
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.reservation-form label {
+    font-weight: 600;
+}
+
+.reservation-form input,
+.reservation-form select {
+    border-radius: 8px;
+}
+
+

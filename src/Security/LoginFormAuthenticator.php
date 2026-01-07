@@ -1,5 +1,5 @@
 <?php
-
+// src/Security/LoginFormAuthenticator.php
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,7 +13,6 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
@@ -28,15 +27,19 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $email = $request->getPayload()->getString('email');
+        // lire les champs du formulaire POST
+        $email = (string) $request->request->get('email', '');
+        $password = (string) $request->request->get('password', '');
+        $csrfToken = (string) $request->request->get('_csrf_token', '');
 
-        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
+        // stocker le dernier username dans la session (clé standard)
+        $request->getSession()->set('_security.last_username', $email);
 
         return new Passport(
             new UserBadge($email),
-            new PasswordCredentials($request->getPayload()->getString('password')),
+            new PasswordCredentials($password),
             [
-                new CsrfTokenBadge('authenticate', $request->getPayload()->getString('_csrf_token')),
+                new CsrfTokenBadge('authenticate', $csrfToken),
                 new RememberMeBadge(),
             ]
         );
@@ -44,13 +47,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // If the user tried to access a protected page, redirect there
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // Otherwise, redirect to dashboard
-        return new RedirectResponse($this->urlGenerator->generate('admin_dashboard_index'));
+        // modifier la route cible si nécessaire
+        return new RedirectResponse($this->urlGenerator->generate('app_admin_dashboard'));
     }
 
     protected function getLoginUrl(Request $request): string

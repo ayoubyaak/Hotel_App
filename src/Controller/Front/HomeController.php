@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 #[Route('', name: 'front_')]
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    #[Route('/home', name: 'home')]
     public function index(RoomRepository $roomRepo): Response
     {
         $rooms = $roomRepo->findBy(['available' => true]);

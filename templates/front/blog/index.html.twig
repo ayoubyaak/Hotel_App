@@ -1,0 +1,139 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Blog – Keto Hotel{% endblock %}
+
+{% block styles %}
+    <style>
+        /* ===== BLOG PAGE INLINE CSS ===== */
+
+        .blog-page {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f6f7fb, #eef1f7);
+        }
+
+        .blog-page .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #1e293b;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            transition: all 0.35s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.18);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-content h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #111;
+        }
+
+        .blog-content p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #d40000, #ff3b3b);
+            color: #fff;
+            border-radius: 30px;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .read-more:hover {
+            background: linear-gradient(135deg, #a80000, #e60000);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <section class="blog-page">
+        <div class="container">
+
+            <h1 class="page-title">Our Blog</h1>
+
+            <div class="blog-grid">
+
+                <div class="blog-card">
+                    <img src="/assets/images/blog1.jpg" alt="Luxury Room">
+                    <div class="blog-content">
+                        <h3>Luxury Room Experience</h3>
+                        <p>
+                            Découvrez le confort de nos chambres luxueuses,
+                            conçues pour offrir élégance, tranquillité et une
+                            expérience de séjour inoubliable.
+                        </p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <img src="/assets/images/blog2.jpg" alt="Hotel Services">
+                    <div class="blog-content">
+                        <h3>Best Hotel Services</h3>
+                        <p>
+                            Profitez de services hôteliers de qualité, assurés
+                            par une équipe professionnelle attentive à votre
+                            confort et à votre satisfaction.
+                        </p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <img src="/assets/images/blog3.jpg" alt="Comfort & Relaxation">
+                    <div class="blog-content">
+                        <h3>Comfort & Relaxation</h3>
+                        <p>
+                            Offrez-vous un moment de détente dans un cadre
+                            apaisant, idéal pour se relaxer et se ressourcer.
+                        </p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% include 'admin/partials/_head.html.twig' %}
+</head>
+
+<body>
+
+<div class="admin-wrapper">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fa fa-hotel"></i>
+            <span>Admin Hotel</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li>
+                <a href="{{ path('admin_dashboard_index') }}">
+                    <i class="fa fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_category_index') }}">
+                    <i class="fa fa-list"></i> Catégories
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_client_index') }}">
+                    <i class="fa fa-users"></i> Clients
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_room_index') }}">
+                    <i class="fa fa-bed"></i> Chambres
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_reservation_index') }}">
+                    <i class="fa fa-calendar-check"></i> Réservations
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <h5>{% block page_title %}{% endblock %}</h5>
+
+            <div>
+                <i class="fa fa-user"></i>
+                {{ app.user.name ?? app.user.email }}
+                <a href="{{ path('app_logout') }}" class="btn btn-sm btn-danger ms-3">Logout</a>
+            </div>
+        </header>
+
+        <section class="content">
+            {% block body %}{% endblock %}
+        </section>
+
+    </main>
+
+</div>
+
+{% include 'admin/partials/_scripts.html.twig' %}
+</body>
+</html>
